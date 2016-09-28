@@ -127,6 +127,11 @@
 #define _0_9_7_BLE_METADATA_TRANFER_TIME_US					(_0_9_7_US_PER_BYTE * _0_9_7_NOF_BLE_BYTES_NOT_INCLUDED_IN_BLE_LENGTH)
 
 
+#if VERSION_MAJOR >= 2
+guint tvb_length(const tvbuff_t *tvb) {
+    return tvb_reported_length(tvb);
+}
+#endif
 
 
 /* Forward declaration that is needed below if using the
