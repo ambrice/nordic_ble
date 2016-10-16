@@ -443,13 +443,13 @@ dissect_flags(tvbuff_t *tvb, packet_info *pinfo, proto_tree *tree)
 	
 	if (dir)
 	{
-		SET_ADDRESS(&pinfo->src, AT_STRINGZ, 7, "Master");
-		SET_ADDRESS(&pinfo->dst, AT_STRINGZ, 6, "Slave");
+		set_address(&pinfo->src, AT_STRINGZ, 7, "Master");
+		set_address(&pinfo->dst, AT_STRINGZ, 6, "Slave");
 	} 
 	else 
 	{
-		SET_ADDRESS(&pinfo->src, AT_STRINGZ, 6, "Slave");
-		SET_ADDRESS(&pinfo->dst, AT_STRINGZ, 7, "Master");
+		set_address(&pinfo->src, AT_STRINGZ, 6, "Slave");
+		set_address(&pinfo->dst, AT_STRINGZ, 7, "Master");
 	}	
 	
 
@@ -811,7 +811,7 @@ proto_register_nordic_ble(void)
   proto_nordic_ble 			= proto_register_protocol("Nordic BLE sniffer meta",
           "nordic_ble", "nordic_ble");
 
-	new_register_dissector("nordic_ble", dissect_nordic_ble, proto_nordic_ble);
+	register_dissector("nordic_ble", dissect_nordic_ble, proto_nordic_ble);
 
 	//expert_ip 			= expert_register_protocol(proto_nordic_ble);
 	//expert_register_field_array(expert_ip, ei, array_length(ei));
@@ -839,11 +839,11 @@ proto_reg_handoff_nordic_ble(void)
     static int currentPort;
 
     if (!initialized) {
-        /* Use new_create_dissector_handle() to indicate that
+        /* Use create_dissector_handle() to indicate that
          * dissect_nordic_ble() returns the number of bytes it dissected (or 0
          * if it thinks the packet does not belong to nordic ble sniffer).
          */
-        nordic_ble_handle 			= new_create_dissector_handle(dissect_nordic_ble,
+        nordic_ble_handle 			= create_dissector_handle(dissect_nordic_ble,
                 proto_nordic_ble);
 				
 		
